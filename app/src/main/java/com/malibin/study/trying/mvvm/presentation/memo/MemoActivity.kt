@@ -1,4 +1,4 @@
-package com.malibin.study.trying.mvvm.presentation
+package com.malibin.study.trying.mvvm.presentation.memo
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
