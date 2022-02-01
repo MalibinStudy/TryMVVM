@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">TryingMVVMStudy</string>
+    <string name="title">제목</string>
+    <string name="content">내용</string>
+    <string name="dateFormat">yyyy.MM.dd</string>
+    <string name="memoMaxLengthFormat">%d/500</string>
+    <string name="writeComplete">작성 완료</string>
 </resources>
