@@ -6,7 +6,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import com.malibin.study.trying.mvvm.data.entity.Diary
+import com.malibin.study.trying.mvvm.data.entity.DiaryEntity
 
 /**
  * Created By Malibin
@@ -17,20 +17,20 @@ import com.malibin.study.trying.mvvm.data.entity.Diary
 interface DiariesDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertDiary(diary: Diary)
+    fun insertDiary(diaryEntity: DiaryEntity)
 
-    @Query("SELECT * FROM diary WHERE id = :diaryId")
-    fun getDiary(diaryId: String): Diary
+    @Query("SELECT * FROM DiaryEntity WHERE id = :diaryId")
+    fun getDiary(diaryId: String): DiaryEntity
 
-    @Query("SELECT * FROM diary")
-    fun getAllDiaries(): List<Diary>
+    @Query("SELECT * FROM DiaryEntity")
+    fun getAllDiaries(): List<DiaryEntity>
 
     @Update
-    fun updateDiary(diary: Diary)
+    fun updateDiary(diaryEntity: DiaryEntity)
 
     @Delete
-    fun deleteDiary(diary: Diary)
+    fun deleteDiary(diaryEntity: DiaryEntity)
 
-    @Query("DELETE FROM diary WHERE id = :diaryId")
+    @Query("DELETE FROM DiaryEntity WHERE id = :diaryId")
     fun deleteDiary(diaryId: String)
 }

@@ -2,16 +2,16 @@ package com.malibin.study.trying.mvvm.presentation.memo
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.malibin.study.trying.mvvm.databinding.ActivityMemoBinding
+import com.malibin.study.trying.mvvm.databinding.ActivityEditDiaryBinding
 
-class MemoActivity : AppCompatActivity() {
+class EditDiaryActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMemoBinding
+    private lateinit var binding: ActivityEditDiaryBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityMemoBinding.inflate(layoutInflater)
+        binding = ActivityEditDiaryBinding.inflate(layoutInflater)
         setContentView(binding.root)
     }
 }

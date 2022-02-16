@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TryingMVVMStudy">
         <activity
-            android:name=".presentation.memos.MemosActivity"
+            android:name=".presentation.memos.DiariesActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".presentation.memo.MemoActivity"
+            android:name=".presentation.memo.EditDiaryActivity"
             android:exported="false" />
 
     </application>

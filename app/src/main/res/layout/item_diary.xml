@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="memo"
-            type="com.malibin.study.trying.mvvm.domain.Memo" />
+            name="diary"
+            type="com.malibin.study.trying.mvvm.domain.Diary" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,7 +23,7 @@
             android:layout_marginEnd="16dp"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="@{memo.title}"
+            android:text="@{diary.title}"
             app:layout_constraintBottom_toTopOf="@+id/textContent"
             app:layout_constraintEnd_toStartOf="@+id/textCreateDate"
             app:layout_constraintStart_toStartOf="parent"
@@ -40,7 +40,7 @@
             android:layout_marginBottom="8dp"
             android:ellipsize="end"
             android:maxLines="2"
-            android:text="@{memo.content}"
+            android:text="@{diary.content}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -54,7 +54,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:text="@string/dateFormat"
-            app:createdDate="@{memo.createDate}"
+            app:createdDate="@{diary.createDate}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>

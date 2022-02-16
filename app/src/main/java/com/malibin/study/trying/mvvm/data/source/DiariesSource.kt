@@ -1,6 +1,6 @@
 package com.malibin.study.trying.mvvm.data.source
 
-import com.malibin.study.trying.mvvm.data.entity.Diary
+import com.malibin.study.trying.mvvm.data.entity.DiaryEntity
 
 /**
  * Created By Malibin
@@ -9,13 +9,13 @@ import com.malibin.study.trying.mvvm.data.entity.Diary
 
 interface DiariesSource {
 
-    fun createDiary(diary: Diary)
+    fun createDiary(diaryEntity: DiaryEntity)
 
-    fun getAllDiaries(): List<Diary>
+    fun getAllDiaries(): List<DiaryEntity>
 
-    fun getDiaryOf(diaryId: String): Diary
+    fun getDiaryOf(diaryId: String): DiaryEntity
 
-    fun updateDiary(diary: Diary)
+    fun updateDiary(diaryEntity: DiaryEntity)
 
     fun deleteDiaryOf(diaryId: String)
 }

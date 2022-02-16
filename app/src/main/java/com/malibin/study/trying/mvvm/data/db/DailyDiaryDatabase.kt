@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.malibin.study.trying.mvvm.data.dao.DiariesDao
-import com.malibin.study.trying.mvvm.data.entity.Diary
+import com.malibin.study.trying.mvvm.data.entity.DiaryEntity
 
 /**
  * Created By Malibin
@@ -14,7 +14,7 @@ import com.malibin.study.trying.mvvm.data.entity.Diary
  */
 
 @TypeConverters(DateTypeConverter::class)
-@Database(entities = [Diary::class], version = 1)
+@Database(entities = [DiaryEntity::class], version = 1)
 abstract class DailyDiaryDatabase : RoomDatabase() {
 
     abstract fun getDiariesDao(): DiariesDao

@@ -10,7 +10,7 @@ import java.util.*
  */
 
 @Entity
-data class Diary(
+data class DiaryEntity(
     val title: String,
     val content: String,
     val createDate: Date = Date(),
