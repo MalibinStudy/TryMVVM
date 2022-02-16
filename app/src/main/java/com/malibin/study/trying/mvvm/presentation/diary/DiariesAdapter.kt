@@ -1,4 +1,4 @@
-package com.malibin.study.trying.mvvm.presentation.memos
+package com.malibin.study.trying.mvvm.presentation.diary
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
