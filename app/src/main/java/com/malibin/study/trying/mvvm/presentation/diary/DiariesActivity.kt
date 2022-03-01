@@ -8,10 +8,10 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import com.malibin.study.trying.mvvm.data.DiaryMemory
 import com.malibin.study.trying.mvvm.databinding.ActivityDiariesBinding
 import com.malibin.study.trying.mvvm.domain.Diary
 import com.malibin.study.trying.mvvm.presentation.diary.edit.EditDiaryActivity
-import java.util.*
 
 class DiariesActivity : AppCompatActivity() {
 
@@ -28,19 +28,23 @@ class DiariesActivity : AppCompatActivity() {
                     onEditMemoFinished(it)
                 }
         initView()
+    }
 
-        diariesAdapter.submitList(STUB_DIARIES)
+    override fun onResume() {
+        super.onResume()
+
+        diariesAdapter.submitList(DiaryMemory.getAllDiaries())
     }
 
     private fun initView() {
         binding = ActivityDiariesBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.listDiaries.adapter = DiariesAdapter(::onMemoClick).also { diariesAdapter = it }
+        binding.listDiaries.adapter = DiariesAdapter(::onDiaryClick).also { diariesAdapter = it }
         binding.buttonNewDiary.setOnClickListener { deployEditDiaryActivity() }
     }
 
-    private fun onMemoClick(diary: Diary) {
+    private fun onDiaryClick(diary: Diary) {
         deployEditDiaryActivity(diary)
     }
 
@@ -60,15 +64,5 @@ class DiariesActivity : AppCompatActivity() {
 
     private fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-    }
-
-    companion object {
-        val STUB_DIARIES = listOf(
-                Diary(UUID.randomUUID().toString(), "제목", "내용", Date()),
-                Diary(UUID.randomUUID().toString(), "제목", "내용", Date()),
-                Diary(UUID.randomUUID().toString(), "제목", "내용", Date()),
-                Diary(UUID.randomUUID().toString(), "제목", "내용", Date()),
-                Diary(UUID.randomUUID().toString(), "제목", "내용", Date()),
-        )
     }
 }

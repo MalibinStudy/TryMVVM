@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
-            name="memo"
-            type="com.malibin.study.trying.mvvm.domain.Diary" />
+            name="viewModel"
+            type="com.malibin.study.trying.mvvm.presentation.diary.edit.EditDiaryViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -33,6 +34,7 @@
             android:layout_marginEnd="16dp"
             android:ems="10"
             android:inputType="textPersonName"
+            android:text="@={viewModel.title}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView" />
@@ -41,9 +43,10 @@
             android:id="@+id/textDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/dateFormat"
+            app:createdDate="@{viewModel.diary.createDate}"
             app:layout_constraintBottom_toTopOf="@+id/textTitle"
-            app:layout_constraintEnd_toEndOf="@+id/textTitle" />
+            app:layout_constraintEnd_toEndOf="@+id/textTitle"
+            tools:text="@string/dateFormat" />
 
         <TextView
             android:id="@+id/textView2"
@@ -59,9 +62,10 @@
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/memoMaxLengthFormat"
+            android:text="@{@string/memoMaxLengthFormat(viewModel.content.length)}"
             app:layout_constraintBottom_toTopOf="@+id/textContent"
-            app:layout_constraintEnd_toEndOf="@+id/textContent" />
+            app:layout_constraintEnd_toEndOf="@+id/textContent"
+            tools:text="@string/memoMaxLengthFormat" />
 
         <EditText
             android:id="@+id/textContent"
@@ -73,6 +77,7 @@
             android:ems="10"
             android:gravity="start|top"
             android:inputType="textMultiLine"
+            android:text="@={viewModel.content}"
             app:layout_constraintBottom_toTopOf="@+id/buttonSubmit"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -85,6 +90,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="24dp"
+            android:onClick="@{() -> viewModel.saveDiary()}"
             android:text="@string/writeComplete"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
