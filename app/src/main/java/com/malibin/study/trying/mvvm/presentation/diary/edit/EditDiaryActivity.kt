@@ -19,6 +19,7 @@ class EditDiaryActivity : AppCompatActivity() {
             setResult(Activity.RESULT_OK)
             finish()
         }
+
     }
 
     companion object {

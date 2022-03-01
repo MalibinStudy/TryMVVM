@@ -24,9 +24,9 @@ class DiariesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         editDiaryActivityLauncher =
-            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-                onEditMemoFinished(it)
-            }
+                registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+                    onEditMemoFinished(it)
+                }
         initView()
 
         diariesAdapter.submitList(STUB_DIARIES)
@@ -64,11 +64,11 @@ class DiariesActivity : AppCompatActivity() {
 
     companion object {
         val STUB_DIARIES = listOf(
-            Diary(0, "제목", "내용", Date()),
-            Diary(1, "제목", "내용", Date()),
-            Diary(2, "제목", "내용", Date()),
-            Diary(3, "제목", "내용", Date()),
-            Diary(4, "제목", "내용", Date()),
+                Diary(UUID.randomUUID().toString(), "제목", "내용", Date()),
+                Diary(UUID.randomUUID().toString(), "제목", "내용", Date()),
+                Diary(UUID.randomUUID().toString(), "제목", "내용", Date()),
+                Diary(UUID.randomUUID().toString(), "제목", "내용", Date()),
+                Diary(UUID.randomUUID().toString(), "제목", "내용", Date()),
         )
     }
 }
