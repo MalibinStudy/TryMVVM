@@ -25,7 +25,7 @@ class DiariesActivity : AppCompatActivity() {
 
         editDiaryActivityLauncher =
                 registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-                    onEditMemoFinished(it)
+                    onEditDiaryFinished(it)
                 }
         initView()
     }
@@ -56,7 +56,7 @@ class DiariesActivity : AppCompatActivity() {
         editDiaryActivityLauncher.launch(intent)
     }
 
-    private fun onEditMemoFinished(result: ActivityResult) = when (result.resultCode) {
+    private fun onEditDiaryFinished(result: ActivityResult) = when (result.resultCode) {
         Activity.RESULT_OK -> showToast("작성 완료!")
         Activity.RESULT_CANCELED -> showToast("작성이 취소되었습니다.")
         else -> showToast("Unexpected Activity Result : $result")

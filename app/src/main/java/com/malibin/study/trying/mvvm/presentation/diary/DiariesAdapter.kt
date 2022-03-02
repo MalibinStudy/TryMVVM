@@ -19,17 +19,17 @@ class DiariesAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val memo = getItem(position)
-        holder.bind(memo, onDiaryClick)
+        val diary = getItem(position)
+        holder.bind(diary, onDiaryClick)
     }
 
     class ViewHolder(
         private val binding: ItemDiaryBinding,
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(diary: Diary, onMemoClick: ((Diary) -> Unit)? = null) {
+        fun bind(diary: Diary, onDiaryClick: ((Diary) -> Unit)? = null) {
             binding.diary = diary
-            binding.root.setOnClickListener { onMemoClick?.invoke(diary) }
+            binding.root.setOnClickListener { onDiaryClick?.invoke(diary) }
         }
     }
 
