@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TryingMVVMStudy">
         <activity
+            android:name=".presentation.LiveDataTestActivity"
+            android:exported="false" />
+        <activity
             android:name=".presentation.diary.DiariesActivity"
             android:exported="true">
             <intent-filter>
@@ -21,7 +24,6 @@
         <activity
             android:name=".presentation.diary.edit.EditDiaryActivity"
             android:exported="false" />
-
     </application>
 
 </manifest>
