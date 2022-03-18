@@ -18,6 +18,10 @@ class LiveDataTest {
             while (true) {
                 Thread.sleep(2_000)
                 _count.postValue((_count.value ?: 0) + 1)
+
+//                Handler(Looper.getMainLooper()).post {
+//                    _count.value = (_count.value ?: 0) + 1
+//                }
             }
         }
 
