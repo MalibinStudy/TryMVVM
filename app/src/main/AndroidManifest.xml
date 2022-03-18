@@ -11,15 +11,17 @@
         android:theme="@style/Theme.TryingMVVMStudy">
         <activity
             android:name=".presentation.LiveDataTestActivity"
-            android:exported="false" />
-        <activity
-            android:name=".presentation.diary.DiariesActivity"
-            android:exported="true">
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".presentation.diary.DiariesActivity"
+            android:exported="true">
+
         </activity>
         <activity
             android:name=".presentation.diary.edit.EditDiaryActivity"

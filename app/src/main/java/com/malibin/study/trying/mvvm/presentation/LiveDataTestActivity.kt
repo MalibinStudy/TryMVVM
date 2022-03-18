@@ -1,6 +1,7 @@
 package com.malibin.study.trying.mvvm.presentation
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.malibin.study.trying.mvvm.databinding.ActivityLiveDataTestBinding
 
@@ -15,5 +16,9 @@ class LiveDataTestActivity : AppCompatActivity() {
 
         binding = ActivityLiveDataTestBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        liveDataTest.count.observe(this){
+            Log.d("MalibinDebug", "count : $it")
+        }
     }
 }
