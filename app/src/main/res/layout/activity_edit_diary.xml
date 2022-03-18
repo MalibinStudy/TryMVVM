@@ -6,7 +6,7 @@
     <data>
 
         <variable
-            name="memo"
+            name="diary"
             type="com.malibin.study.trying.mvvm.domain.Diary" />
     </data>
 

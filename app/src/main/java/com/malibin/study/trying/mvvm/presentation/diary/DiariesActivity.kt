@@ -8,10 +8,10 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import com.malibin.study.trying.mvvm.data.DiaryMemory
 import com.malibin.study.trying.mvvm.databinding.ActivityDiariesBinding
 import com.malibin.study.trying.mvvm.domain.Diary
 import com.malibin.study.trying.mvvm.presentation.diary.edit.EditDiaryActivity
-import java.util.*
 
 class DiariesActivity : AppCompatActivity() {
 
@@ -28,8 +28,12 @@ class DiariesActivity : AppCompatActivity() {
                 onEditMemoFinished(it)
             }
         initView()
+    }
 
-        diariesAdapter.submitList(STUB_DIARIES)
+    override fun onResume() {
+        super.onResume()
+
+        diariesAdapter.submitList(DiaryMemory.getAllDiaries())
     }
 
     private fun initView() {
@@ -62,13 +66,13 @@ class DiariesActivity : AppCompatActivity() {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
-    companion object {
-        val STUB_DIARIES = listOf(
-            Diary("0", "제목", "내용", Date()),
-            Diary("1", "제목", "내용", Date()),
-            Diary("2", "제목", "내용", Date()),
-            Diary("3", "제목", "내용", Date()),
-            Diary("4", "제목", "내용", Date()),
-        )
-    }
+//    companion object {
+//        val STUB_DIARIES = listOf(
+//            Diary("0", "제목", "내용", Date()),
+//            Diary("1", "제목", "내용", Date()),
+//            Diary("2", "제목", "내용", Date()),
+//            Diary("3", "제목", "내용", Date()),
+//            Diary("4", "제목", "내용", Date()),
+//        )
+//    }
 }
