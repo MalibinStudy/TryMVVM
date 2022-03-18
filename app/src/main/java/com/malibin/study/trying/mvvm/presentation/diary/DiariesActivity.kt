@@ -64,11 +64,11 @@ class DiariesActivity : AppCompatActivity() {
 
     companion object {
         val STUB_DIARIES = listOf(
-            Diary(0, "제목", "내용", Date()),
-            Diary(1, "제목", "내용", Date()),
-            Diary(2, "제목", "내용", Date()),
-            Diary(3, "제목", "내용", Date()),
-            Diary(4, "제목", "내용", Date()),
+            Diary("0", "제목", "내용", Date()),
+            Diary("1", "제목", "내용", Date()),
+            Diary("2", "제목", "내용", Date()),
+            Diary("3", "제목", "내용", Date()),
+            Diary("4", "제목", "내용", Date()),
         )
     }
 }
