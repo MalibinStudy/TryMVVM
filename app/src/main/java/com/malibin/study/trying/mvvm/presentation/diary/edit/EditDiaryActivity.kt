@@ -3,7 +3,10 @@ package com.malibin.study.trying.mvvm.presentation.diary.edit
 import android.app.Activity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.malibin.study.trying.mvvm.data.DiaryMemory
 import com.malibin.study.trying.mvvm.databinding.ActivityEditDiaryBinding
+import com.malibin.study.trying.mvvm.domain.Diary
+import java.util.*
 
 class EditDiaryActivity : AppCompatActivity() {
 
@@ -16,9 +19,29 @@ class EditDiaryActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.buttonSubmit.setOnClickListener {
+            saveDiary()
             setResult(Activity.RESULT_OK)
             finish()
         }
+
+        loadDiary(getDiaryId())
+    }
+
+    private fun getDiaryId(): String? = intent.getStringExtra(KEY_DIARY)
+
+    private fun loadDiary(diaryId: String?) {
+        val diary = DiaryMemory.getDiary(diaryId ?: return)
+        binding.diary = diary
+    }
+
+    private fun saveDiary() {
+        val diary = Diary(
+            id = UUID.randomUUID().toString(),
+            title = binding.textTitle.text.toString(),
+            content = binding.textContent.text.toString(),
+            createDate = Date()
+        )
+        DiaryMemory.saveDiary(diary)
     }
 
     companion object {
