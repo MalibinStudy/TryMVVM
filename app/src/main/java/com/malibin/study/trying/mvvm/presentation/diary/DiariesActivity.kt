@@ -24,9 +24,9 @@ class DiariesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         editDiaryActivityLauncher =
-                registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-                    onEditDiaryFinished(it)
-                }
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+                onEditDiaryFinished(it)
+            }
         initView()
     }
 

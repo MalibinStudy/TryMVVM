@@ -17,7 +17,7 @@ class LiveDataTestActivity : AppCompatActivity() {
         binding = ActivityLiveDataTestBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        liveDataTest.count.observe(this){
+        liveDataTest.count.observe(this) {
             Log.d("MalibinDebug", "count : $it")
         }
     }

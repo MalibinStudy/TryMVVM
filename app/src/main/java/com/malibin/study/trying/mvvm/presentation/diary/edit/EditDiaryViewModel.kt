@@ -1,6 +1,8 @@
 package com.malibin.study.trying.mvvm.presentation.diary.edit
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.malibin.study.trying.mvvm.data.DiaryMemory
 import com.malibin.study.trying.mvvm.domain.Diary
 import com.malibin.study.trying.mvvm.presentation.utils.SingleLiveEvent
@@ -25,8 +27,8 @@ class EditDiaryViewModel : ViewModel() {
     fun saveDiary() {
         val previousDiary = _diary.value ?: error("diary cannot be null")
         val updatedDiary = previousDiary.copy(
-                title = title.value.orEmpty(),
-                content = content.value.orEmpty(),
+            title = title.value.orEmpty(),
+            content = content.value.orEmpty(),
         )
         DiaryMemory.saveDiary(updatedDiary)
         editSuccessEvent.value = Unit
