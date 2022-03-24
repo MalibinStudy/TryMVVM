@@ -15,6 +15,8 @@ class LiveDataTestActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         binding = ActivityLiveDataTestBinding.inflate(layoutInflater)
+        binding.lifecycleOwner = this
+        binding.test = liveDataTest
         setContentView(binding.root)
 
         liveDataTest.count.observe(this) {
