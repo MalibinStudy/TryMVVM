@@ -2,13 +2,13 @@ package com.malibin.study.trying.mvvm.presentation
 
 import android.os.Handler
 import android.os.HandlerThread
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 
 class LiveDataTest {
 
-    private val _count = MutableLiveData<Int>()
-    val count: LiveData<Int> = _count
+    private val _count = MutableStateFlow(0)
+    val count: StateFlow<Int> = _count
 
     init {
         val handlerThread = HandlerThread("back")
@@ -17,19 +17,8 @@ class LiveDataTest {
         Handler(handlerThread.looper).post {
             while (true) {
                 Thread.sleep(2_000)
-                _count.postValue((_count.value ?: 0) + 1)
-
-//                Handler(Looper.getMainLooper()).post {
-//                    _count.value = (_count.value ?: 0) + 1
-//                }
+                _count.value = _count.value + 1
             }
         }
-
-//        Thread{
-//            while (true) {
-//                Thread.sleep(2_000)
-//                _count.postValue((_count.value ?: 0) + 1)
-//            }
-//        }.start()
     }
 }

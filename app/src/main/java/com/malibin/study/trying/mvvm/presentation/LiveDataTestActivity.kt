@@ -3,7 +3,11 @@ package com.malibin.study.trying.mvvm.presentation
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.malibin.study.trying.mvvm.databinding.ActivityLiveDataTestBinding
+import kotlinx.coroutines.launch
 
 class LiveDataTestActivity : AppCompatActivity() {
 
@@ -19,8 +23,12 @@ class LiveDataTestActivity : AppCompatActivity() {
         binding.test = liveDataTest
         setContentView(binding.root)
 
-        liveDataTest.count.observe(this) {
-            Log.d("MalibinDebug", "count : $it")
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                liveDataTest.count.collect {
+                    Log.d("MalibinDebug", "count : $it")
+                }
+            }
         }
     }
 }
