@@ -6,7 +6,7 @@ import java.util.*
 object DiaryMemory {
 
     private val diaries: MutableMap<String, Diary> = mutableMapOf(
-            "first" to Diary("first", "기본 메모", "그냥 들어있는 메모", Date())
+        "first" to Diary("first", "기본 메모", "그냥 들어있는 메모", Date())
     )
 
     fun saveDiary(diary: Diary) {
