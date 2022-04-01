@@ -22,8 +22,7 @@ abstract class DailyDiaryDatabase : RoomDatabase() {
                 context,
                 DailyDiaryDatabase::class.java,
                 "DailyDiaryDatabase"
-            ).allowMainThreadQueries()
-                .build()
+            ).build()
         }
     }
 }
