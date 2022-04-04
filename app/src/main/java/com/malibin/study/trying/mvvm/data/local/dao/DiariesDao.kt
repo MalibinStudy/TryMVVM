@@ -1,6 +1,5 @@
 package com.malibin.study.trying.mvvm.data.local.dao
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -13,20 +12,20 @@ import com.malibin.study.trying.mvvm.data.local.entity.DiaryEntity
 interface DiariesDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertDiary(diary: DiaryEntity)
+    suspend fun insertDiary(diary: DiaryEntity)
 
     @Query("SELECT * FROM diaryEntity WHERE id = :diaryId")
-    fun getDiary(diaryId: String): DiaryEntity
+    suspend fun getDiary(diaryId: String): DiaryEntity?
 
     @Query("SELECT * FROM diaryEntity")
-    fun getAllDiaries(): LiveData<List<DiaryEntity>>
+    suspend fun getAllDiaries(): List<DiaryEntity>
 
     @Update
-    fun updateDiary(diary: DiaryEntity)
+    suspend fun updateDiary(diary: DiaryEntity)
 
     @Delete
-    fun deleteDiary(diary: DiaryEntity)
+    suspend fun deleteDiary(diary: DiaryEntity)
 
     @Query("DELETE FROM diaryEntity WHERE id = :diaryId")
-    fun deleteDiary(diaryId: String)
+    suspend fun deleteDiary(diaryId: String)
 }

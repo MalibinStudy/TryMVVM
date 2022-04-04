@@ -36,6 +36,11 @@ class DiariesActivity : AppCompatActivity() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        diariesViewModel.loadDiaries()
+    }
+
     private fun initView() {
         binding = ActivityDiariesBinding.inflate(layoutInflater)
         setContentView(binding.root)
