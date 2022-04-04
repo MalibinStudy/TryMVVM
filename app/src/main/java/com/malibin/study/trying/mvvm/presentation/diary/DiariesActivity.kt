@@ -7,8 +7,8 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.malibin.study.trying.mvvm.data.DiaryMemory
 import com.malibin.study.trying.mvvm.databinding.ActivityDiariesBinding
 import com.malibin.study.trying.mvvm.domain.Diary
 import com.malibin.study.trying.mvvm.presentation.diary.edit.EditDiaryActivity
@@ -20,20 +20,25 @@ class DiariesActivity : AppCompatActivity() {
 
     private lateinit var editDiaryActivityLauncher: ActivityResultLauncher<Intent>
 
+    private val diariesViewModel: DiariesViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         editDiaryActivityLauncher =
-                registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-                    onEditDiaryFinished(it)
-                }
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+                onEditDiaryFinished(it)
+            }
         initView()
+
+        diariesViewModel.diaries.observe(this) {
+            diariesAdapter.submitList(it)
+        }
     }
 
     override fun onResume() {
         super.onResume()
-
-        diariesAdapter.submitList(DiaryMemory.getAllDiaries())
+        diariesViewModel.loadDiaries()
     }
 
     private fun initView() {
