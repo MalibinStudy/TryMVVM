@@ -3,15 +3,19 @@ package com.malibin.study.trying.mvvm.presentation.diary
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.malibin.study.trying.mvvm.data.local.db.DailyDiaryDatabase
+import com.malibin.study.trying.mvvm.data.local.entity.DiaryEntity
 import com.malibin.study.trying.mvvm.databinding.ActivityDiariesBinding
 import com.malibin.study.trying.mvvm.domain.Diary
 import com.malibin.study.trying.mvvm.presentation.diary.edit.EditDiaryActivity
+import java.util.*
 
 class DiariesActivity : AppCompatActivity() {
 
@@ -34,6 +38,12 @@ class DiariesActivity : AppCompatActivity() {
         diariesViewModel.diaries.observe(this) {
             diariesAdapter.submitList(it)
         }
+
+        // temporary code
+        val diariesDao = DailyDiaryDatabase.newInstance(this).getDiariesDao()
+        diariesDao.insertDiary(DiaryEntity("title", "content", Date(), "id"))
+        Log.d("MalibinDebug", "diary : ${diariesDao.getDiary("id")}")
+        // temporary code
     }
 
     override fun onResume() {
