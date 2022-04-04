@@ -16,6 +16,15 @@ abstract class DailyDiaryDatabase : RoomDatabase() {
     abstract fun getDiariesDao(): DiariesDao
 
     companion object {
+        private var instance: DailyDiaryDatabase? = null
+
+        @JvmStatic
+        fun getInstance(context: Context): DailyDiaryDatabase {
+            return instance ?: synchronized(this) {
+                newInstance(context).also { instance = it }
+            }
+        }
+
         @JvmStatic
         fun newInstance(context: Context): DailyDiaryDatabase {
             return Room.databaseBuilder(

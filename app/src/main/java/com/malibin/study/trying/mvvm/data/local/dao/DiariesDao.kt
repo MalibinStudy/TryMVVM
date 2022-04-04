@@ -16,7 +16,7 @@ interface DiariesDao {
     fun insertDiary(diary: DiaryEntity)
 
     @Query("SELECT * FROM diaryEntity WHERE id = :diaryId")
-    fun getDiary(diaryId: String): LiveData<DiaryEntity>
+    fun getDiary(diaryId: String): DiaryEntity
 
     @Query("SELECT * FROM diaryEntity")
     fun getAllDiaries(): LiveData<List<DiaryEntity>>
