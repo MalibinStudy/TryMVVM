@@ -41,14 +41,18 @@ class DiariesActivity : AppCompatActivity() {
 
         // temporary code
         val diariesDao = DailyDiaryDatabase.newInstance(this).getDiariesDao()
-        diariesDao.insertDiary(DiaryEntity("title", "content", Date(), "id"))
-        Log.d("MalibinDebug", "diary : ${diariesDao.getDiary("id")}")
-        // temporary code
-    }
 
-    override fun onResume() {
-        super.onResume()
-        diariesViewModel.loadDiaries()
+        diariesDao.getAllDiaries().observe(this) {
+            Log.d("MalibinDebug", "observing getAllDiaries : $it")
+        }
+
+        diariesDao.getDiary("testid").observe(this) {
+            Log.d("MalibinDebug", "observing getDiary (test) : $it")
+        }
+
+        diariesDao.insertDiary(DiaryEntity("title", "content", Date(), "testid"))
+        diariesDao.deleteDiary("testid")
+        // temporary code
     }
 
     private fun initView() {

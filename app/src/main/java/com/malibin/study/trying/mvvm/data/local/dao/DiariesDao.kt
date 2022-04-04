@@ -1,5 +1,6 @@
 package com.malibin.study.trying.mvvm.data.local.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -15,10 +16,10 @@ interface DiariesDao {
     fun insertDiary(diary: DiaryEntity)
 
     @Query("SELECT * FROM diaryEntity WHERE id = :diaryId")
-    fun getDiary(diaryId: String): DiaryEntity
+    fun getDiary(diaryId: String): LiveData<DiaryEntity>
 
     @Query("SELECT * FROM diaryEntity")
-    fun getAllDiaries(): List<DiaryEntity>
+    fun getAllDiaries(): LiveData<List<DiaryEntity>>
 
     @Update
     fun updateDiary(diary: DiaryEntity)
