@@ -15,6 +15,7 @@ import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
 import retrofit2.http.PUT
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface MalibinService {
@@ -26,12 +27,17 @@ interface MalibinService {
 
     @GET("/diary")
     suspend fun getDiaries(
-        @Header(AUTHORIZATION) token: String?,
+        @Header(AUTHORIZATION) token: String? = null,
     ): Response<List<DiaryResponse>>
+
+    @GET("/diary/{id}")
+    suspend fun getDiary(
+        @Path(ID) diaryId: String,
+    ): Response<DiaryResponse>
 
     @POST("/diary")
     suspend fun saveDiary(
-        @Header(AUTHORIZATION) token: String?,
+        @Header(AUTHORIZATION) token: String? = null,
         @Body params: SaveDiaryParams,
     ): Response<Unit>
 
@@ -42,12 +48,13 @@ interface MalibinService {
 
     @DELETE("/diary")
     suspend fun deleteDiary(
-        @Query("id") diaryId: String,
+        @Query(ID) diaryId: String,
     ): Response<Unit>
 
     companion object {
         private const val AUTHORIZATION = "Authorization"
-        private const val BASE_URL = "http://34.220.194.69:7373"
+        private const val ID = "id"
+        private const val BASE_URL = "http://52.42.22.72:7373"
 
         private var instance: MalibinService? = null
 
