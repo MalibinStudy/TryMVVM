@@ -3,7 +3,7 @@ package com.malibin.study.trying.mvvm.data.local.mapper
 import com.malibin.study.trying.mvvm.data.local.entity.DiaryEntity
 import com.malibin.study.trying.mvvm.domain.Diary
 
-class DiariesMapper {
+class LocalDiariesMapper {
     fun toDiaryEntity(diary: Diary): DiaryEntity = DiaryEntity(
         id = diary.id,
         title = diary.title,

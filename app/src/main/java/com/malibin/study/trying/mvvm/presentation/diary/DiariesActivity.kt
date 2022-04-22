@@ -13,7 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.malibin.study.trying.mvvm.data.local.db.DailyDiaryDatabase
-import com.malibin.study.trying.mvvm.data.local.mapper.DiariesMapper
+import com.malibin.study.trying.mvvm.data.local.mapper.LocalDiariesMapper
 import com.malibin.study.trying.mvvm.data.local.source.DiariesLocalSource
 import com.malibin.study.trying.mvvm.data.remote.service.MalibinService
 import com.malibin.study.trying.mvvm.data.repository.RealDiariesRepository
@@ -87,7 +87,7 @@ class DiariesActivity : AppCompatActivity() {
                         RealDiariesRepository(
                             DiariesLocalSource(
                                 DailyDiaryDatabase.getInstance(context).getDiariesDao(),
-                                DiariesMapper(),
+                                LocalDiariesMapper(),
                             ),
                             MalibinService.getInstance(),
                         )
