@@ -24,8 +24,8 @@ class EditDiaryViewModel(
         diariesRepository.getDiary(diaryId ?: return@launch)
             .onSuccess {
                 _diary.value = it
-                title.value = it.title
-                content.value = it.content
+                title.value = it?.title
+                content.value = it?.content
             }
             .onFailure { }
     }
