@@ -1,30 +1,28 @@
 package com.malibin.study.trying.mvvm.data.repository
 
-import com.malibin.study.trying.mvvm.data.local.dao.DiariesDao
-import com.malibin.study.trying.mvvm.data.local.entity.DiaryEntity
 import com.malibin.study.trying.mvvm.data.remote.params.SaveDiaryParams
 import com.malibin.study.trying.mvvm.data.remote.params.UpdateDiaryParams
 import com.malibin.study.trying.mvvm.data.remote.service.MalibinService
+import com.malibin.study.trying.mvvm.data.source.DiariesSource
 import com.malibin.study.trying.mvvm.domain.Diary
 import com.malibin.study.trying.mvvm.domain.repository.DiariesRepository
 import java.util.*
 
 class RealDiariesRepository(
-    private val diariesDao: DiariesDao,
+    private val diariesLocalSource: DiariesSource,
     private val malibinService: MalibinService,
 ) : DiariesRepository {
 
     override suspend fun getAllDiaries(): Result<List<Diary>> {
-        val localDiaries = diariesDao.getAllDiaries()
+        val localDiaries = diariesLocalSource.getAllDiaries().getOrElse { emptyList() }
         if (localDiaries.isNotEmpty()) {
-            val diaries = localDiaries.map { Diary(it.id, it.title, it.content, it.createDate) }
-            return Result.success(diaries)
+            return Result.success(localDiaries)
         }
         val response = malibinService.getDiaries()
         if (response.isSuccessful) {
             val remoteDiaries = response.body().orEmpty()
             remoteDiaries.forEach {
-                diariesDao.insertDiary(DiaryEntity(it.title, it.content, Date(it.createdAt), it.id))
+                diariesLocalSource.saveDiary(Diary(it.id, it.title, it.content, Date(it.createdAt)))
             }
             val diaries =
                 remoteDiaries.map { Diary(it.id, it.title, it.content, Date(it.createdAt)) }
@@ -33,52 +31,29 @@ class RealDiariesRepository(
         return Result.failure(IllegalStateException(response.message()))
     }
 
-    override suspend fun getDiary(id: String): Result<Diary> {
-        val localDiary = diariesDao.getDiary(id)
+    override suspend fun getDiary(id: String): Result<Diary?> {
+        val localDiary = diariesLocalSource.getDiary(id).getOrNull()
         if (localDiary != null) {
-            return Result.success(
-                Diary(
-                    localDiary.id,
-                    localDiary.title,
-                    localDiary.content,
-                    localDiary.createDate
-                )
-            )
+            return Result.success(localDiary)
         }
         val response = malibinService.getDiary(id)
         if (response.isSuccessful) {
             val remoteDiary = response.body()
                 ?: return Result.failure(IllegalStateException("response success but body is null!"))
-            diariesDao.insertDiary(
-                DiaryEntity(
-                    remoteDiary.title,
-                    remoteDiary.content,
-                    Date(remoteDiary.createdAt),
-                    remoteDiary.id,
-                )
+            val diary = Diary(
+                remoteDiary.id,
+                remoteDiary.title,
+                remoteDiary.content,
+                Date(remoteDiary.createdAt),
             )
-            return Result.success(
-                Diary(
-                    remoteDiary.id,
-                    remoteDiary.title,
-                    remoteDiary.content,
-                    Date(remoteDiary.createdAt),
-                )
-            )
+            diariesLocalSource.saveDiary(diary)
+            return Result.success(diary)
         }
         return Result.failure(IllegalStateException(response.message()))
     }
 
     override suspend fun saveDiary(diary: Diary): Result<Unit> {
         return runCatching {
-            diariesDao.insertDiary(
-                DiaryEntity(
-                    diary.title,
-                    diary.content,
-                    diary.createDate,
-                    diary.id,
-                )
-            )
             malibinService.saveDiary(
                 params = SaveDiaryParams(
                     title = diary.title,
@@ -87,19 +62,12 @@ class RealDiariesRepository(
                     id = diary.id,
                 )
             )
+            diariesLocalSource.saveDiary(diary).getOrThrow()
         }
     }
 
     override suspend fun updateDiary(diary: Diary): Result<Unit> {
         return runCatching {
-            diariesDao.updateDiary(
-                DiaryEntity(
-                    diary.title,
-                    diary.content,
-                    diary.createDate,
-                    diary.id,
-                )
-            )
             malibinService.updateDiary(
                 params = UpdateDiaryParams(
                     title = diary.title,
@@ -107,13 +75,14 @@ class RealDiariesRepository(
                     id = diary.id,
                 )
             )
+            diariesLocalSource.updateDiary(diary).getOrThrow()
         }
     }
 
-    override suspend fun deleteDiary(diary: Diary): Result<Unit> {
+    override suspend fun deleteDiary(diaryId: String): Result<Unit> {
         return runCatching {
-            diariesDao.deleteDiary(diary.id)
-            malibinService.deleteDiary(diary.id)
+            malibinService.deleteDiary(diaryId)
+            diariesLocalSource.deleteDiary(diaryId).getOrThrow()
         }
     }
 }

@@ -54,7 +54,7 @@ class DiariesLocalSource(
         }
     }
 
-    override suspend fun deleteDiary(diary: Diary): Result<Unit> {
-        return runCatching { diariesDao.deleteDiary(diary.id) }
+    override suspend fun deleteDiary(diaryId: String): Result<Unit> {
+        return runCatching { diariesDao.deleteDiary(diaryId) }
     }
 }

@@ -11,5 +11,5 @@ interface DiariesSource {
 
     suspend fun updateDiary(diary: Diary): Result<Unit>
 
-    suspend fun deleteDiary(diary: Diary): Result<Unit>
+    suspend fun deleteDiary(diaryId: String): Result<Unit>
 }
