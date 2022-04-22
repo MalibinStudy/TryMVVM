@@ -31,7 +31,7 @@ class RealDiariesRepository(
         return Result.failure(IllegalStateException(response.message()))
     }
 
-    override suspend fun getDiary(id: String): Result<Diary?> {
+    override suspend fun getDiary(id: String): Result<Diary> {
         val localDiary = diariesLocalSource.getDiary(id).getOrNull()
         if (localDiary != null) {
             return Result.success(localDiary)

@@ -14,9 +14,11 @@ class DiariesLocalSource(
             .map { diariesEntities -> diariesEntities.map { diariesMapper.toDiary(it) } }
     }
 
-    override suspend fun getDiary(id: String): Result<Diary?> {
-        return runCatching { diariesDao.getDiary(id) }
-            .map { diariesMapper.toDiary(it ?: return@map null) }
+    override suspend fun getDiary(id: String): Result<Diary> {
+        return runCatching {
+            diariesDao.getDiary(id)
+                ?: throw IllegalArgumentException("cannot find diary of id : $id")
+        }.map { diariesMapper.toDiary(it) }
     }
 
     override suspend fun saveDiary(diary: Diary): Result<Unit> {

@@ -6,7 +6,7 @@ interface DiariesRepository {
 
     suspend fun getAllDiaries(): Result<List<Diary>>
 
-    suspend fun getDiary(id: String): Result<Diary?>
+    suspend fun getDiary(id: String): Result<Diary>
 
     suspend fun saveDiary(diary: Diary): Result<Unit>
 
