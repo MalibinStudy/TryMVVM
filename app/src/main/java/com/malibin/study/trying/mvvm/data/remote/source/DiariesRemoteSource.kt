@@ -1,6 +1,6 @@
 package com.malibin.study.trying.mvvm.data.remote.source
 
-import com.malibin.study.trying.mvvm.data.remote.mapper.DiariesRemoteMapper
+import com.malibin.study.trying.mvvm.data.remote.mapper.RemoteDiariesMapper
 import com.malibin.study.trying.mvvm.data.remote.service.MalibinService
 import com.malibin.study.trying.mvvm.data.source.DiariesSource
 import com.malibin.study.trying.mvvm.domain.Diary
@@ -8,13 +8,13 @@ import retrofit2.Response
 
 class DiariesRemoteSource(
     private val malibinService: MalibinService,
-    private val diariesRemoteMapper: DiariesRemoteMapper,
+    private val remoteDiariesMapper: RemoteDiariesMapper,
 ) : DiariesSource {
     override suspend fun getAllDiaries(): Result<List<Diary>> {
         val response = malibinService.getDiaries()
         if (response.isSuccessful) {
             return response.body().orEmpty()
-                .map { diariesRemoteMapper.toDiary(it) }
+                .map { remoteDiariesMapper.toDiary(it) }
                 .let { Result.success(it) }
         }
         return Result.failure(IllegalStateException(response.message()))
@@ -25,18 +25,18 @@ class DiariesRemoteSource(
         if (response.isSuccessful) {
             val remoteDiary = response.body()
                 ?: return Result.failure(IllegalStateException("response success but body is null!"))
-            return Result.success(diariesRemoteMapper.toDiary(remoteDiary))
+            return Result.success(remoteDiariesMapper.toDiary(remoteDiary))
         }
         return Result.failure(IllegalStateException(response.message()))
     }
 
     override suspend fun saveDiary(diary: Diary): Result<Unit> {
-        return malibinService.saveDiary(params = diariesRemoteMapper.toSaveDiaryParams(diary))
+        return malibinService.saveDiary(params = remoteDiariesMapper.toSaveDiaryParams(diary))
             .toResult()
     }
 
     override suspend fun updateDiary(diary: Diary): Result<Unit> {
-        return malibinService.updateDiary(diariesRemoteMapper.toUpdateDiaryParams(diary)).toResult()
+        return malibinService.updateDiary(remoteDiariesMapper.toUpdateDiaryParams(diary)).toResult()
     }
 
     override suspend fun deleteDiary(diaryId: String): Result<Unit> {

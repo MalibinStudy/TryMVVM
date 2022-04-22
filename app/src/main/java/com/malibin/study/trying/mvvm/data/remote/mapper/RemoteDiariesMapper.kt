@@ -6,7 +6,7 @@ import com.malibin.study.trying.mvvm.data.remote.response.DiaryResponse
 import com.malibin.study.trying.mvvm.domain.Diary
 import java.util.*
 
-class DiariesRemoteMapper {
+class RemoteDiariesMapper {
     fun toDiary(diaryResponse: DiaryResponse): Diary = Diary(
         id = diaryResponse.id,
         title = diaryResponse.title,

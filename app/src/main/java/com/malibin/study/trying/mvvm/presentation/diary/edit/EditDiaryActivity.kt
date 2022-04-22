@@ -10,7 +10,9 @@ import androidx.lifecycle.ViewModelProvider
 import com.malibin.study.trying.mvvm.data.local.db.DailyDiaryDatabase
 import com.malibin.study.trying.mvvm.data.local.mapper.LocalDiariesMapper
 import com.malibin.study.trying.mvvm.data.local.source.DiariesLocalSource
+import com.malibin.study.trying.mvvm.data.remote.mapper.RemoteDiariesMapper
 import com.malibin.study.trying.mvvm.data.remote.service.MalibinService
+import com.malibin.study.trying.mvvm.data.remote.source.DiariesRemoteSource
 import com.malibin.study.trying.mvvm.data.repository.RealDiariesRepository
 import com.malibin.study.trying.mvvm.databinding.ActivityEditDiaryBinding
 
@@ -54,7 +56,10 @@ class EditDiaryActivity : AppCompatActivity() {
                                 DailyDiaryDatabase.getInstance(context).getDiariesDao(),
                                 LocalDiariesMapper(),
                             ),
-                            MalibinService.getInstance(),
+                            DiariesRemoteSource(
+                                MalibinService.getInstance(),
+                                RemoteDiariesMapper(),
+                            ),
                         )
                     )
                 }
