@@ -54,7 +54,7 @@ interface MalibinService {
     companion object {
         private const val AUTHORIZATION = "Authorization"
         private const val ID = "id"
-        private const val BASE_URL = "http://52.42.22.72:7373"
+        const val BASE_URL = "http://52.42.22.72:7373"
 
         private var instance: MalibinService? = null
 
