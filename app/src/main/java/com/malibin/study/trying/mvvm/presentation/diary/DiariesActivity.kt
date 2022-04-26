@@ -22,7 +22,9 @@ import com.malibin.study.trying.mvvm.data.repository.RealDiariesRepository
 import com.malibin.study.trying.mvvm.databinding.ActivityDiariesBinding
 import com.malibin.study.trying.mvvm.domain.Diary
 import com.malibin.study.trying.mvvm.presentation.diary.edit.EditDiaryActivity
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class DiariesActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDiariesBinding
@@ -30,7 +32,7 @@ class DiariesActivity : AppCompatActivity() {
 
     private lateinit var editDiaryActivityLauncher: ActivityResultLauncher<Intent>
 
-    private val diariesViewModel: DiariesViewModel by viewModels { DiariesViewModelFactory(this) }
+    private val diariesViewModel: DiariesViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -79,27 +81,5 @@ class DiariesActivity : AppCompatActivity() {
 
     private fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-    }
-
-    class DiariesViewModelFactory(private val context: Context) : ViewModelProvider.Factory {
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return when (modelClass) {
-                DiariesViewModel::class.java -> {
-                    DiariesViewModel(
-                        RealDiariesRepository(
-                            DiariesLocalSource(
-                                DailyDiaryDatabase.getInstance(context).getDiariesDao(),
-                                LocalDiariesMapper(),
-                            ),
-                            DiariesRemoteSource(
-                                MalibinService.getInstance(),
-                                RemoteDiariesMapper(),
-                            ),
-                        )
-                    )
-                }
-                else -> throw IllegalArgumentException("$modelClass cannot create in DiariesViewModelFactory")
-            } as T
-        }
     }
 }
