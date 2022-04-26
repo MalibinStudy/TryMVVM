@@ -5,8 +5,9 @@ import com.malibin.study.trying.mvvm.data.remote.params.UpdateDiaryParams
 import com.malibin.study.trying.mvvm.data.remote.response.DiaryResponse
 import com.malibin.study.trying.mvvm.domain.Diary
 import java.util.*
+import javax.inject.Inject
 
-class RemoteDiariesMapper {
+class RemoteDiariesMapper @Inject constructor() {
     fun toDiary(diaryResponse: DiaryResponse): Diary = Diary(
         id = diaryResponse.id,
         title = diaryResponse.title,

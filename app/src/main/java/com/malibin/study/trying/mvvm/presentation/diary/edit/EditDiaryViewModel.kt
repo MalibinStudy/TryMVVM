@@ -7,9 +7,12 @@ import androidx.lifecycle.viewModelScope
 import com.malibin.study.trying.mvvm.domain.Diary
 import com.malibin.study.trying.mvvm.domain.repository.DiariesRepository
 import com.malibin.study.trying.mvvm.presentation.utils.SingleLiveEvent
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class EditDiaryViewModel(
+@HiltViewModel
+class EditDiaryViewModel @Inject constructor(
     private val diariesRepository: DiariesRepository,
 ) : ViewModel() {
     val editSuccessEvent = SingleLiveEvent<Unit>()

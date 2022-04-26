@@ -1,12 +1,15 @@
 package com.malibin.study.trying.mvvm.data.repository
 
 import com.malibin.study.trying.mvvm.data.source.DiariesSource
+import com.malibin.study.trying.mvvm.di.annotations.LocalDiariesSource
+import com.malibin.study.trying.mvvm.di.annotations.RemoteDiariesSource
 import com.malibin.study.trying.mvvm.domain.Diary
 import com.malibin.study.trying.mvvm.domain.repository.DiariesRepository
+import javax.inject.Inject
 
-class RealDiariesRepository(
-    private val diariesLocalSource: DiariesSource,
-    private val diariesRemoteSource: DiariesSource,
+class RealDiariesRepository @Inject constructor(
+    @LocalDiariesSource private val diariesLocalSource: DiariesSource,
+    @RemoteDiariesSource private val diariesRemoteSource: DiariesSource,
 ) : DiariesRepository {
 
     override suspend fun getAllDiaries(): Result<List<Diary>> {

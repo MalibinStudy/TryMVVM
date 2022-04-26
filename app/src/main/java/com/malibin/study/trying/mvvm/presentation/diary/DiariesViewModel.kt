@@ -6,9 +6,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.malibin.study.trying.mvvm.domain.Diary
 import com.malibin.study.trying.mvvm.domain.repository.DiariesRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class DiariesViewModel(
+@HiltViewModel
+class DiariesViewModel @Inject constructor(
     private val diariesRepository: DiariesRepository,
 ) : ViewModel() {
     private val _diaries = MutableLiveData<List<Diary>>()

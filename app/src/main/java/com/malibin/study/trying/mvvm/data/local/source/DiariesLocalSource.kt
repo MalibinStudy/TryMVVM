@@ -4,8 +4,9 @@ import com.malibin.study.trying.mvvm.data.local.dao.DiariesDao
 import com.malibin.study.trying.mvvm.data.local.mapper.LocalDiariesMapper
 import com.malibin.study.trying.mvvm.data.source.DiariesSource
 import com.malibin.study.trying.mvvm.domain.Diary
+import javax.inject.Inject
 
-class DiariesLocalSource(
+class DiariesLocalSource @Inject constructor(
     private val diariesDao: DiariesDao,
     private val localDiariesMapper: LocalDiariesMapper,
 ) : DiariesSource {

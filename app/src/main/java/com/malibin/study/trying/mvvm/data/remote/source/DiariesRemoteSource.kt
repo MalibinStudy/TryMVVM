@@ -5,8 +5,9 @@ import com.malibin.study.trying.mvvm.data.remote.service.MalibinService
 import com.malibin.study.trying.mvvm.data.source.DiariesSource
 import com.malibin.study.trying.mvvm.domain.Diary
 import retrofit2.Response
+import javax.inject.Inject
 
-class DiariesRemoteSource(
+class DiariesRemoteSource @Inject constructor(
     private val malibinService: MalibinService,
     private val remoteDiariesMapper: RemoteDiariesMapper,
 ) : DiariesSource {
