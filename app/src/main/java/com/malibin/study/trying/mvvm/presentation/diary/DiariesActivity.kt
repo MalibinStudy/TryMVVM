@@ -1,5 +1,6 @@
 package com.malibin.study.trying.mvvm.presentation.diary
 
+import com.malibin.study.trying.mvvm.presentation.diary.edit.EditDiaryActivity
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
@@ -25,7 +26,8 @@ class DiariesActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-
+        if (requestCode != EditDiaryActivity.REQUEST_CODE) return
+        onEditMemoFinished(resultCode)
     }
 
     private fun initView() {
@@ -46,7 +48,11 @@ class DiariesActivity : AppCompatActivity() {
     }
 
     private fun deployEditDiaryActivity(diary: Diary? = null) {
-
+        val intent = Intent(this, EditDiaryActivity::class.java)
+        if (diary != null) {
+            intent.putExtra(EditDiaryActivity.KEY_DIARY, diary.id)
+        }
+        startActivityForResult(intent, EditDiaryActivity.REQUEST_CODE)
     }
 
     private fun onEditMemoFinished(resultCode: Int) = when (resultCode) {
