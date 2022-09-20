@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TryingMVVMStudy">
         <activity
-            android:name=".MainActivity"
+            android:name=".presentation.diary.DiariesActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
